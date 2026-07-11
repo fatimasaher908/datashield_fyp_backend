@@ -1,0 +1,99 @@
+### =========================
+### REGISTER USER
+### =========================
+POST https://localhost:8383/auth/register
+Content-Type: application/json
+
+{
+  "username": "ali123",
+  "email": "ali@example.com",
+  "password": "123456"
+}
+
+
+### =========================
+### LOGIN WEB (COOKIE BASED)
+### =========================
+POST https://localhost:8383/auth/login/web
+Content-Type: application/json
+
+{
+  "email": "ali@example.com",
+  "password": "123456"
+}
+
+
+### =========================
+### LOGIN MOBILE (JWT TOKEN)
+### =========================
+POST https://localhost:8383/auth/login/mobile
+Content-Type: application/json
+
+{
+  "email": "ali@example.com",
+  "password": "123456"
+}
+
+
+### =========================
+### TEST PROTECTED ROUTE (MOBILE)
+### Replace YOUR_TOKEN_HERE
+### =========================
+GET https://localhost:8383/profile
+Authorization: Bearer YOUR_TOKEN_HERE
+
+
+### =========================
+### LOGOUT WEB (COOKIE)
+### =========================
+POST https://localhost:8383/auth/logout/web
+Content-Type: application/json
+
+
+### =========================
+### LOGOUT MOBILE (JWT)
+### Replace YOUR_TOKEN_HERE
+### =========================
+POST https://localhost:8383/auth/logout/mobile
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### =========================
+### CREATE KEY (SET PIN + GENERATE DEK)
+### =========================
+POST https://localhost:8383/key/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbGlAZXhhbXBsZS5jb20iLCJqdGkiOiI5ZGM3YTYyMS1kMDQzLTQwNjItOGJjMC0zZTc4MzRkNGY5MTMiLCJpYXQiOjE3ODM3NzI1OTgsImV4cCI6MTc4Mzc3NDM5OH0.0VJvSWfCup09MS7Hgad_N-uWfusCLmpxJaLsL3m3RGk
+
+{
+  "user_id": "2",
+  "pin": "1234"
+}
+
+### =========================
+### GET USER KEY
+### =========================
+GET  http://localhost:8383/key/2
+Content-Type: application/json
+//Authorization: Bearer YOUR_TOKEN_HERE
+
+
+### =========================
+### GET revoked status
+### =========================
+GET  https://localhost:8383/key/revoked
+Content-Type: application/json
+//Authorization: Bearer YOUR_TOKEN_HERE
+
+### =========================
+### GET rotation count
+### =========================
+GET  https://localhost:8383/key/rotation
+Content-Type: application/json
+//Authorization: Bearer YOUR_TOKEN_HERE
+
+### =========================
+### REVOKE KEY
+### =========================
+PUT   https://localhost:8383/key/revoke-key
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbGlAZXhhbXBsZS5jb20iLCJqdGkiOiIyZTFmYWM1OC0xN2QyLTRmNzQtOWI4ZS1mMTUzMGY3MzNiYzQiLCJpYXQiOjE3ODI5MDM1MTcsImV4cCI6MTc4MjkwNTMxN30.KVOSVaTIKFPqhgi96hPx4mjU1Y8SwUtfCrQY42oT15A
