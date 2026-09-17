@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRoutes.js";
 import keyRouter from "./routes/keyRoutes.js";
 import pinRouter from "./routes/pinRoutes.js";
+import fileRouter from "./routes/fileRoutes.js";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 app.use("/key", keyRouter);
 app.use("/pin", pinRouter);
+app.use("/files", fileRouter);
 
 export default app;

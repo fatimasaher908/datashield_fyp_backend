@@ -1,5 +1,5 @@
 import { pool } from "../db/db.js";
-import { createKeyService,generateAESKey, getRotationCount, isKeyRevoked, revokeKeyService } from "../services/keyServices.js";
+import { createKeyService,generateAESKey, getRotationCount, isKeyRevoked, revokeKeyService ,restoreKeyService} from "../services/keyServices.js";
 
 
 
@@ -54,6 +54,7 @@ export async function getUserKey(req, res) {
         res.json({
             user_id,
             encrypted_key: keyData.encrypted_key,
+            kek_salt: keyData.kek_salt,
           //  rotation_count: keyData.rotation_count,
            // created_at: keyData.created_at
         });
@@ -133,6 +134,24 @@ export const revokeKeyController = async (req, res) => {
         return res.status(err.status || 500).json({
             success: false,
             message: err.message || "Failed to revoke key"
+        });
+    }
+};
+// Controller to restore a user's key
+export const restoreKeyController = async (req, res) => {
+    try {
+
+        const user_id = req.user.id;
+        console.log("Restoring key for user_id:", user_id);
+
+        const result = await restoreKeyService(user_id);
+
+        return res.json(result);
+
+    } catch (err) {
+        return res.status(err.status || 500).json({
+            success: false,
+            message: err.message || "Failed to restore key"
         });
     }
 };

@@ -40,7 +40,7 @@ const authenticateUser = async (req, res, next) => {
              WHERE jti = $1`,
             [decoded.jti]
         );
-        console.log("decoded.jti: ", decoded.jti, "with id ", decoded.id);
+     //   console.log("decoded.jti: ", decoded.jti, "with id ", decoded.id);
 
         if (session.rows.length === 0) {
             return res.status(401).json({

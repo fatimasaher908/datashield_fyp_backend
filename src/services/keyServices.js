@@ -207,3 +207,38 @@ export async function revokeKeyService(user_id) {
         message: "Key revoked successfully"
     };
 }
+// Restore a user's key
+export async function restoreKeyService(user_id) {
+
+    // 1. Check if key exists
+    const result = await pool.query(
+        `SELECT * FROM "UserKey" WHERE user_id = $1`,
+        [user_id]
+    );
+
+    if (result.rows.length === 0) {
+        throw {
+            status: 404,
+            message: "Key not found"
+        };
+    }
+
+    const keyRecord = result.rows[0];
+
+   
+
+    //  Restore key (IMPORTANT STEP)
+    await pool.query(
+        `
+        UPDATE "UserKey"
+        SET is_revoked = false
+        WHERE user_id = $1
+        `,
+        [user_id]
+    );
+    console.log(`Key for user_id ${user_id} has been restored and is revoked status is ${keyRecord.is_revoked}.`);
+    return {
+        success: true,
+        message: "Key restored successfully"
+    };
+}

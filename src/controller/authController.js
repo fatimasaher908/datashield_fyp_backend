@@ -91,14 +91,14 @@ const loginUser = async (email, password, req) => {
             jti
         },
         process.env.JWT_SECRET,
-        { expiresIn: "30m" }
+        { expiresIn: "24h" }
     );
 
     // store session in DB
     await pool.query(
         `INSERT INTO user_sessions
         (user_id, jti, expires_at, user_agent, ip_address)
-        VALUES ($1, $2, NOW() + INTERVAL '30 minutes', $3, $4)`,
+        VALUES ($1, $2, NOW() + INTERVAL '24 hours', $3, $4)`,
         [
             user.id,
             jti,
@@ -133,7 +133,7 @@ const loginWeb = async (req, res) => {
        // secure: process.env.NODE_ENV === "production",
        // sameSite: "Strict",
          sameSite: "None",
-        maxAge: 30 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000
     });
 
     return res.json({
@@ -152,6 +152,7 @@ const loginMobile = async (req, res) => {
 
     const data = await loginUser(email, password, req);
 
+    
     if (!data) {
         return res.status(401).json({
             success: false,

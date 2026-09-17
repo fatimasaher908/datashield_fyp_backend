@@ -85,10 +85,22 @@ const options = {
 const PORT = process.env.PORT || 443;
 
 // Create HTTPS server
+// const server = https.createServer(options, app);
+
+// // Start server
+// server.listen(PORT, async () => {
+//     try {
+//         await connectDB();
+//         console.log(`HTTPS Server running on https://localhost:${PORT}`);
+//     } catch (err) {
+//         console.error("Database connection failed:", err);
+//         process.exit(1);
+//     }
+// });
 const server = https.createServer(options, app);
 
 // Start server
-server.listen(PORT, async () => {
+server.listen(PORT, "0.0.0.0", async () => {
     try {
         await connectDB();
         console.log(`HTTPS Server running on https://localhost:${PORT}`);
@@ -97,7 +109,6 @@ server.listen(PORT, async () => {
         process.exit(1);
     }
 });
-
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err) => {
     console.error("Unhandled Rejection:", err);
