@@ -32,6 +32,16 @@ const authenticateUser = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+console.log("========================================");
+console.log("AUTH DEBUG");
+console.log("Token exists:", !!token);
+console.log("Decoded JWT:", decoded);
+console.log("JWT user ID:", decoded?.id);
+console.log("JWT user_id:", decoded?.user_id);
+console.log("JWT user object:", decoded?.user);
+console.log("========================================");
+
+
         // =========================
         // SESSION VALIDATION (JTI)
         // =========================

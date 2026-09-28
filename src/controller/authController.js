@@ -152,7 +152,6 @@ const loginMobile = async (req, res) => {
 
     const data = await loginUser(email, password, req);
 
-    
     if (!data) {
         return res.status(401).json({
             success: false,
@@ -163,10 +162,13 @@ const loginMobile = async (req, res) => {
     return res.json({
         success: true,
         token: data.token,
-    //    user: data.user
+        user: {
+            id: data.user.id,
+            username: data.user.username,
+            email: data.user.email
+        }
     });
 };
-
 
 // =========================
 // LOGOUT WEB

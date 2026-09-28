@@ -6,6 +6,7 @@ import authRouter from "./routes/authRoutes.js";
 import keyRouter from "./routes/keyRoutes.js";
 import pinRouter from "./routes/pinRoutes.js";
 import fileRouter from "./routes/fileRoutes.js";
+import mediaRouter from "./routes/mediaRoutes.js";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/auth", authRouter);
 app.use("/key", keyRouter);
 app.use("/pin", pinRouter);
 app.use("/files", fileRouter);
+app.use("/media", mediaRouter);
 
 export default app;
